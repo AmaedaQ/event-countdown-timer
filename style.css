@@ -18,9 +18,44 @@ body {
     padding: 10px 0;
 }
 .heading {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #343a40;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2980B9;
     text-align: center;
     margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
 }
+.second-heading{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2e4154;
+ 
+}
+.event-heading{
+    font-size: 1.3rem ;
+    font-weight: 500;
+    color:#E74C3C;
+    font-style: italic;
+}
+.countdown-time{
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #27AE60;
+}
+.event-description{
+    color: #7F8C8D;
+}
+.event-date{
+color: #1A6EB1 ;
+font-size: .9rem;
+}
+.add-event{
+background-color:#1A6EB1;
+color: #ffffff; 
+}
+
+.add-event:hover {
+    background-color: #145A8C; 
+    color: #ffffff;
+  }
+

@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const li = document.createElement('li');
             li.classList.add('event-list-item');
             li.innerHTML = `
-                <h3>${event.name}</h3>
-                <p>${event.description}</p>
+                <h3 class="event-heading">${event.name}</h3>
+                <p class="event-description">${event.description}</p>
                 <div class="countdown" id="countdown-${event.name}"></div>
-                <small><em>Event Date: ${new Date(event.date).toLocaleString()}</em></small>
+                <small><em class="event-date">Event Date: ${new Date(event.date).toLocaleString()}</em></small>
             `;
             eventList.appendChild(li);
         });
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let events = JSON.parse(localStorage.getItem('events')) || [];
         events.forEach(event => {
             const countdownElement = document.getElementById(`countdown-${event.name}`);
+            countdownElement.classList.add("countdown-time")
             if (countdownElement) {
                 const eventDate = new Date(event.date).getTime();
                 const now = new Date().getTime();
