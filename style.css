@@ -1,0 +1,162 @@
+body {
+  background: url("blue.jpg") no-repeat center center fixed; /* Set background image */
+  background-size: cover; /* Ensure the image covers the entire body */
+  margin: 0;
+  padding: 20px; /* Add padding to ensure some space around elements */
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.heading {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #330000; /* Deep red color for headings */
+  text-align: center; /* Align text to the left */
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#eventForm {
+  width: 100%;
+  max-width: 900px;
+  background-color: rgba(
+    240,
+    244,
+    248,
+    0.8
+  ); /* Light background for the form with transparency */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+}
+
+.form-row {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #330000; /* Deep red color for labels */
+}
+
+.form-control {
+  border: 2px solid #73605b; /* Soft brown border for form controls */
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group textarea.form-control {
+  resize: vertical;
+}
+
+.add-event {
+  background-color: #330000; /* Deep red for the button */
+  color: #ffffff;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  display: block;
+  margin: 20px auto;
+}
+
+.add-event:hover {
+  background-color: #73605b; /* Soft brown for hover effect */
+  color: #ffffff;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-top: 15px;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.custom-checkbox label {
+  color: #330000; /* Deep red color for checkbox label */
+  font-weight: 500;
+}
+
+.custom-checkbox input[type="checkbox"]:checked {
+  background-color: #330000; /* Deep red background for checked checkbox */
+  border-color: #330000;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + label {
+  color: #330000;
+}
+
+.second-heading {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #330000; /* Deep red for section headings */
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: rgba(240, 244, 248, 0.8); /* Light background for cards */
+  width: 100%;
+  border: 1px solid #3f0897; /* Soft brown border for cards */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  font-family: initial;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #330000; /* Deep red color for card title */
+  text-align: left;
+}
+
+.card-text {
+  font-size: 1.25rem;
+  color: #73605b; /* Soft brown color for card text */
+  font-style: italic;
+  font-weight: 700;
+}
+
+.card-countdown {
+  font-family: cursive;
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #180a52; /* Deep red color for countdown */
+  text-align: center;
+}
+
+.card-date {
+  font-size: 1rem;
+  color: #73605b; /* Soft brown color for event date */
+  text-align: center;
+}
+
+.card-footer {
+  text-align: center;
+  padding: 5px;
+}
+
+.remove-event {
+  background-color: #330000; /* Deep red for remove button */
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.remove-event:hover {
+  background-color: #73605b; /* Soft brown for remove button hover effect */
+}
