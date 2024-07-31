@@ -9,9 +9,7 @@ Countdown is also displayed with every events calculating remaining time .
 
 Event Notifications:
 
-More than 1 day remaining: Sends daily notifications showing the number of days remaining until the event.
-1 day remaining: Sends notifications 12 hours before and 1 hour before the event.
-Less than 12 hours remaining: Sends a notification 1 hour before the event starts.
+day remaining: Sends notifications 1 day before and 1 hour before the event.
 Service Worker Integration:
 
 Manages notification interactions and ensures notifications are delivered even if the user is not on the page.

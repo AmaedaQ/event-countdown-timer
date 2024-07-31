@@ -1,11 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
   const eventForm = document.getElementById("eventForm");
   const eventList = document.getElementById("eventList");
+  let currentEditIndex = -1;
 
   function saveEvent(event) {
     let events = JSON.parse(localStorage.getItem("events")) || [];
-    events.push(event);
+    let notificationsSent =
+      JSON.parse(localStorage.getItem("notificationsSent")) || {};
+
+    if (currentEditIndex >= 0) {
+      const oldEvent = events[currentEditIndex];
+      delete notificationsSent[oldEvent.date]; // Clear notification status for the old date
+      events[currentEditIndex] = event;
+      currentEditIndex = -1;
+    } else {
+      events.push(event);
+    }
+
     localStorage.setItem("events", JSON.stringify(events));
+    localStorage.setItem(
+      "notificationsSent",
+      JSON.stringify(notificationsSent)
+    );
     loadEvents();
     scheduleNotifications(); // Schedule notifications when an event is added
   }
@@ -25,7 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <p class="card-date">${formattedDate}</p>
         </div>
         <div class="card-footer">
-          <button class="btn remove-event" data-index="${index}">Remove</button>
+          <button class="btn btn-blue edit-event" data-index="${index}">Edit</button>
+          <button class="btn btn-danger remove-event" data-index="${index}">Remove</button>
         </div>
       `;
       eventList.appendChild(card);
@@ -42,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
-    return `Event date: ${formattedDate} At  ${hours}:${
+    return `Event date: ${formattedDate} at ${hours}:${
       minutes < 10 ? "0" : ""
     }${minutes} ${ampm}`;
   }
@@ -50,11 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateCountdown(index, eventDate) {
     const countdownElement = document.getElementById(`countdown-${index}`);
     const eventTime = new Date(eventDate).getTime();
-    setInterval(() => {
+    const interval = setInterval(() => {
       const currentTime = new Date().getTime();
       const timeDifference = eventTime - currentTime;
+
       if (timeDifference <= 0) {
-        countdownElement.innerHTML = "Event has started!";
+        clearInterval(interval);
+        countdownElement.innerHTML = "Event has passed!";
       } else {
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const hours = Math.floor(
@@ -77,8 +96,21 @@ document.addEventListener("DOMContentLoaded", () => {
     scheduleNotifications(); // Schedule notifications when an event is removed
   }
 
+  function editEvent(index) {
+    let events = JSON.parse(localStorage.getItem("events")) || [];
+    const event = events[index];
+
+    document.getElementById("eventName").value = event.name;
+    document.getElementById("eventDate").value = event.date;
+    document.getElementById("eventDescription").value = event.description;
+
+    currentEditIndex = index;
+  }
+
   function scheduleNotifications() {
     let events = JSON.parse(localStorage.getItem("events")) || [];
+    let notificationsSent =
+      JSON.parse(localStorage.getItem("notificationsSent")) || {};
 
     // Clear any existing notifications
     Notification.requestPermission().then((permission) => {
@@ -90,69 +122,48 @@ document.addEventListener("DOMContentLoaded", () => {
             });
           });
 
-          events.forEach((event) => {
+          events.forEach((event, index) => {
             const eventTime = new Date(event.date).getTime();
             const now = new Date().getTime();
             const timeDifference = eventTime - now;
-            const daysRemaining = Math.floor(
-              timeDifference / (1000 * 60 * 60 * 24)
-            );
-            const hoursRemaining =
-              Math.floor(timeDifference / (1000 * 60 * 60)) % 24;
 
             if (timeDifference <= 0) return; // Skip if the event has already started
 
-            // Notifications for events more than 1 day away
-            if (daysRemaining > 1) {
-              for (let i = daysRemaining; i > 0; i--) {
-                const delay = timeDifference - i * 1000 * 60 * 60 * 24;
-                if (delay > 0) {
-                  setTimeout(() => {
-                    showNotification(
-                      `Event: ${event.name}`,
-                      `Event in ${i} day(s)!`
-                    );
-                  }, delay);
-                }
-              }
+            // Notification 1 day before
+            const delay1Day = timeDifference - 24 * 1000 * 60 * 60;
+            if (
+              !notificationsSent[event.date + "-1day"] &&
+              delay1Day > 0 &&
+              delay1Day < 24 * 1000 * 60 * 60
+            ) {
+              setTimeout(() => {
+                showNotification(`Event: ${event.name}`, `Event is in 1 day!`);
+                notificationsSent[event.date + "-1day"] = true;
+                localStorage.setItem(
+                  "notificationsSent",
+                  JSON.stringify(notificationsSent)
+                );
+              }, delay1Day);
             }
 
-            // Notifications for events within 1 day
-            if (daysRemaining === 1) {
-              // Notification 12 hours before
-              const delay12Hours = timeDifference - 12 * 1000 * 60 * 60;
-              if (delay12Hours > 0) {
-                setTimeout(() => {
-                  showNotification(
-                    `Event: ${event.name}`,
-                    `Event is in 12 hours!`
-                  );
-                }, delay12Hours);
-              }
-              // Notification 1 hour before
-              const delay1Hour = timeDifference - 1 * 1000 * 60 * 60;
-              if (delay1Hour > 0) {
-                setTimeout(() => {
-                  showNotification(
-                    `Event: ${event.name}`,
-                    `Event is happening in 1 hour!`
-                  );
-                }, delay1Hour);
-              }
-            }
-
-            // Notifications for events within 12 hours
-            if (daysRemaining === 0 && hoursRemaining < 12) {
-              // Notification 1 hour before
-              const delay1Hour = timeDifference - 1 * 1000 * 60 * 60;
-              if (delay1Hour > 0) {
-                setTimeout(() => {
-                  showNotification(
-                    `Event: ${event.name}`,
-                    `Event is happening in 1 hour!`
-                  );
-                }, delay1Hour);
-              }
+            // Notification 1 hour before
+            const delay1Hour = timeDifference - 1 * 1000 * 60 * 60;
+            if (
+              !notificationsSent[event.date + "-1hour"] &&
+              delay1Hour > 0 &&
+              delay1Hour < 24 * 1000 * 60 * 60
+            ) {
+              setTimeout(() => {
+                showNotification(
+                  `Event: ${event.name}`,
+                  `Event is happening in 1 hour!`
+                );
+                notificationsSent[event.date + "-1hour"] = true;
+                localStorage.setItem(
+                  "notificationsSent",
+                  JSON.stringify(notificationsSent)
+                );
+              }, delay1Hour);
             }
           });
         });
@@ -193,6 +204,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target.classList.contains("remove-event")) {
       const index = e.target.getAttribute("data-index");
       removeEvent(index);
+    } else if (e.target.classList.contains("edit-event")) {
+      const index = e.target.getAttribute("data-index");
+      editEvent(index);
     }
   });
 

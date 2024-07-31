@@ -1,31 +1,35 @@
 body {
-  background: url("blue.jpg") no-repeat center center fixed; /* Set background image */
-  background-size: cover; /* Ensure the image covers the entire body */
+  background: url("digital-technology-background-vector.jpg") no-repeat center
+    center fixed;
+  background-size: cover;
   margin: 0;
-  padding: 20px; /* Add padding to ensure some space around elements */
-  box-sizing: border-box;
+  padding: 0;
   font-family: Arial, sans-serif;
+}
+
+.main-container {
+  max-width: 1200px;
+  background-color: transparent;
+  padding: 20px;
+  margin: 10px auto;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .heading {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 2.5rem;
   font-weight: 600;
-  color: #330000; /* Deep red color for headings */
-  text-align: center; /* Align text to the left */
+  color: #61d0ee;
+  text-align: center;
   margin-bottom: 30px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #eventForm {
   width: 100%;
-  max-width: 900px;
-  background-color: rgba(
-    240,
-    244,
-    248,
-    0.8
-  ); /* Light background for the form with transparency */
+  max-width: 1000px;
+  background-color: rgba(240, 244, 248, 0.8);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
@@ -38,11 +42,11 @@ body {
 
 .form-group label {
   font-weight: 600;
-  color: #330000; /* Deep red color for labels */
+  color: #330000;
 }
 
 .form-control {
-  border: 2px solid #73605b; /* Soft brown border for form controls */
+  border: 2px solid #73605b;
   border-radius: 4px;
   font-size: 1rem;
 }
@@ -52,7 +56,7 @@ body {
 }
 
 .add-event {
-  background-color: #330000; /* Deep red for the button */
+  background-color: #330000;
   color: #ffffff;
   font-size: 1.1rem;
   padding: 10px 20px;
@@ -63,7 +67,7 @@ body {
 }
 
 .add-event:hover {
-  background-color: #73605b; /* Soft brown for hover effect */
+  background-color: #73605b;
   color: #ffffff;
 }
 
@@ -81,12 +85,12 @@ body {
 }
 
 .custom-checkbox label {
-  color: #330000; /* Deep red color for checkbox label */
+  color: #330000;
   font-weight: 500;
 }
 
 .custom-checkbox input[type="checkbox"]:checked {
-  background-color: #330000; /* Deep red background for checked checkbox */
+  background-color: #330000;
   border-color: #330000;
 }
 
@@ -98,14 +102,15 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 2rem;
   font-weight: 700;
-  color: #330000; /* Deep red for section headings */
+  color: #61d0ee;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .card {
-  background-color: rgba(240, 244, 248, 0.8); /* Light background for cards */
+  background-color: rgba(240, 244, 248, 0.8);
   width: 100%;
-  border: 1px solid #3f0897; /* Soft brown border for cards */
+  border: 1px solid #3f0897;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 10px;
@@ -119,13 +124,13 @@ body {
   font-family: initial;
   font-size: 1.75rem;
   font-weight: 700;
-  color: #330000; /* Deep red color for card title */
+  color: #330000;
   text-align: left;
 }
 
 .card-text {
   font-size: 1.25rem;
-  color: #73605b; /* Soft brown color for card text */
+  color: #73605b;
   font-style: italic;
   font-weight: 700;
 }
@@ -134,13 +139,14 @@ body {
   font-family: cursive;
   font-size: 1.75rem;
   font-weight: bold;
-  color: #180a52; /* Deep red color for countdown */
+  color: #180a52;
   text-align: center;
 }
 
 .card-date {
+  padding-top: 5px;
   font-size: 1rem;
-  color: #73605b; /* Soft brown color for event date */
+  color: #73605b;
   text-align: center;
 }
 
@@ -149,8 +155,20 @@ body {
   padding: 5px;
 }
 
+.edit-event {
+  background-color: #330000;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.edit-event:hover {
+  background-color: #73605b;
+}
+
 .remove-event {
-  background-color: #330000; /* Deep red for remove button */
+  background-color: #330000;
   color: #ffffff;
   border: none;
   padding: 5px 10px;
@@ -158,5 +176,5 @@ body {
 }
 
 .remove-event:hover {
-  background-color: #73605b; /* Soft brown for remove button hover effect */
+  background-color: #73605b;
 }
